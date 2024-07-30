@@ -18,8 +18,13 @@ class ChatPageState extends State<ChatPage> {
 
   void sendMessage(bool isMyMessage) {
     setState(() {
-      chat.insert(0,
-          MessageModel(isMyMessage: isMyMessage, text: messageController.text));
+      chat.insert(
+          0,
+          MessageModel(
+            isMyMessage: isMyMessage,
+            text: messageController.text,
+            timestamp: DateTime.now(),
+          ));
       messageController.clear();
     });
   }

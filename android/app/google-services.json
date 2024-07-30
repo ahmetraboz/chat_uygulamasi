@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "878509052117",
+    "firebase_url": "https://chat-boss-10cb0-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "chat-boss-10cb0",
+    "storage_bucket": "chat-boss-10cb0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878509052117:android:e8cf6ab3fb36de47dad25c",
+        "android_client_info": {
+          "package_name": "com.ahmetboz.chatbossapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDojgVfYozhHobbkmXl4zRFPoeoDzM64Uo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,8 +1,6 @@
-//register user with firebase auth
-//save user info to firestore
-
-import 'package:chat_uygulamasi/view/login_page.dart';
+import 'package:chat_uygulamasi/viewnodel/login_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -15,17 +13,11 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
-  String? errorMessage;
-
-  void goToLoginPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const LoginPage()),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
+    final loginViewModel = Provider.of<LoginViewModel>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Register"),
@@ -35,6 +27,13 @@ class _RegisterPageState extends State<RegisterPage> {
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
+            TextField(
+              controller: nameController,
+              decoration: const InputDecoration(
+                labelText: "Name",
+                border: OutlineInputBorder(),
+              ),
+            ),
             const SizedBox(height: 10.0),
             TextField(
               controller: emailController,
@@ -52,12 +51,25 @@ class _RegisterPageState extends State<RegisterPage> {
               ),
               obscureText: true,
             ),
+            if (loginViewModel.error.isNotEmpty)
+              Text(
+                loginViewModel.error,
+                style: const TextStyle(color: Colors.red),
+              ),
+            const SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () {},
-              child: const Text('kayıt ol'),
+              onPressed: () {
+                loginViewModel.createUser(
+                  email: emailController.text,
+                  password: passwordController.text,
+                );
+              },
+              child: const Text('Kayıt ol'),
             ),
             ElevatedButton(
-              onPressed: goToLoginPage,
+              onPressed: () {
+                Navigator.pop(context);
+              },
               child: const Text('Giriş yap'),
             ),
           ],

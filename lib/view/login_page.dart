@@ -1,5 +1,7 @@
 import 'package:chat_uygulamasi/view/register_page.dart';
+import 'package:chat_uygulamasi/viewnodel/login_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,17 +13,11 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  String? errorMessage;
-
-  void registerPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const RegisterPage()),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
+    final loginViewModel = Provider.of<LoginViewModel>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green.shade200,
@@ -50,19 +46,29 @@ class _LoginPageState extends State<LoginPage> {
               ),
               obscureText: true,
             ),
-            if (errorMessage != null)
+            if (loginViewModel.error.isNotEmpty)
               Text(
-                errorMessage!,
+                loginViewModel.error,
                 style: const TextStyle(color: Colors.red),
               ),
             const SizedBox(height: 10),
             ElevatedButton(
-              onPressed: registerPage,
-              child: const Text("Kayıt ol"),
+              onPressed: () {
+                loginViewModel.signInUser(
+                  email: emailController.text,
+                  password: passwordController.text,
+                );
+              },
+              child: const Text("Giriş Yap"),
             ),
             ElevatedButton(
-              onPressed: () {},
-              child: const Text("Giriş Yap"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RegisterPage()),
+                );
+              },
+              child: const Text("Kayıt ol"),
             ),
           ],
         ),
